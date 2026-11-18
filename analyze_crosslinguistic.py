@@ -4,6 +4,11 @@
 import os
 import re
 from collections import Counter, defaultdict
+
+# Ensure .venv/bin is on PATH so Epitran's eng-Latn finds lex_lookup
+_venv_bin = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".venv", "bin")
+if os.path.isdir(_venv_bin) and _venv_bin not in os.environ.get("PATH", ""):
+    os.environ["PATH"] = _venv_bin + os.pathsep + os.environ.get("PATH", "")
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -26,7 +31,7 @@ ARPABET_TO_IPA = {
 }
 
 LANGUAGES = [
-    ("en", "English", "Indo-European (Germanic)", "cmudict"),
+    ("en", "English", "Indo-European (Germanic)", "eng-Latn"),
     ("de", "German", "Indo-European (Germanic)", "deu-Latn"),
     ("pt", "Portuguese", "Indo-European (Romance)", "por-Latn"),
     ("es", "Spanish", "Indo-European (Romance)", "spa-Latn"),

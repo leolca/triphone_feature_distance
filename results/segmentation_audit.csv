@@ -1,5 +1,5 @@
 code,language,unique_segs,multi_char_types,multi_char_tok_pct
-en,English,34,0,0.0
+en,English,40,5,3.29533172062381
 de,German,59,21,24.83095284258601
 pt,Portuguese,41,14,4.712457517907369
 es,Spanish,44,11,0.2320836194008303

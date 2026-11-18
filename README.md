@@ -26,7 +26,7 @@ Word forms and corpus token frequencies are extracted from **17 Universal Depend
 
 | Code | Language | Family | UD v2 Treebank | G2P / Lexicon | Token Coverage |
 | :--- | :--- | :--- | :--- | :--- | :---: |
-| `en` | English | Indo-European (Germanic) | `UD_English-EWT` | `cmudict` v1.1.3 | 97.0% |
+| `en` | English | Indo-European (Germanic) | `UD_English-EWT` | `epitran` (`eng-Latn` + Flite) | 100.0% |
 | `de` | German | Indo-European (Germanic) | `UD_German-GSD` | `epitran` (`deu-Latn`) | 99.98% |
 | `pt` | Portuguese | Indo-European (Romance) | `UD_Portuguese-Bosque` | `epitran` (`por-Latn`) | 99.86% |
 | `es` | Spanish | Indo-European (Romance) | `UD_Spanish-GSD` | `epitran` (`spa-Latn`) | 99.86% |

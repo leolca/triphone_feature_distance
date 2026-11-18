@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+data/ud/
+*.aux
+*.log
+*.bbl
+*.blg
+*.out
+*.toc
+*.synctex.gz

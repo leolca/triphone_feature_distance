@@ -1,0 +1,277 @@
+\documentclass{interact}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{tipa}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[natbibapa,nodoi]{apacite}
+\setlength\bibhang{12pt}
+\renewcommand\bibliographytypesize{\fontsize{10}{12}\selectfont}
+\usepackage{hyperref}
+
+\begin{document}
+
+\articletype{RESEARCH ARTICLE}
+
+\title{Cross-Linguistic Distinctive-Feature Constraints on Phonemic Triphones: Evidence for Contrastive Dispersion}
+
+\author{
+\name{Leonardo Carneiro Ara\'{u}jo\textsuperscript{a}\thanks{CONTACT Leonardo Carneiro Ara\'{u}jo. Email: leolca@ufsj.edu.br}}
+\affil{\textsuperscript{a}Departamento de Engenharia de Telecomunica\c{c}\~{o}es e Mecatr\^{o}nica, Universidade Federal de S\~{a}o Jo\~{a}o del-Rei (UFSJ), Ouro Branco, MG, Brazil}
+}
+
+\maketitle
+
+\begin{abstract}
+Natural speech patterns reflect both articulatory and perceptual constraints, yet how these pressures shape sequential segment-to-segment transitions across languages remains underexplored. In this study, I quantify the distribution of adjacent distinctive-feature distances in token-weighted triphones $(d_1, d_2)$ across 13 languages spanning five language families (Indo-European, Uralic, Turkic, Austronesian, and Koreanic). Using Universal Dependencies corpora transcribed into International Phonetic Alphabet (IPA) segments and mapped to 24 articulatory distinctive features via PanPhon, I evaluate both feature Hamming distance and $\ell_2$-normalized cosine distance. Across all 13 languages, natural sequences exhibit an intermediate-distance mode ($8$--$10$ features in Hamming distance; $0.28$--$0.38$ in rescaled cosine distance). Comparing natural words against an unrestricted within-word shuffled baseline reveals higher expected adjacent distance ($\mathbb{E}[d]_{\text{real}} > \mathbb{E}[d]_{\text{shuf}}$), narrower dispersion ($\sigma(d)_{\text{real}} < \sigma(d)_{\text{shuf}}$), and lower joint triphone entropy $H(d_1, d_2)$ in 13 out of 13 languages ($W=0, p = 2.44 \times 10^{-4}$). Crucially, introducing a consonant--vowel (C/V) skeleton-preserving baseline separates these effects: the upward shift in $\mathbb{E}[d]$ is accounted for by C/V alternation ($p = 0.946$), whereas natural sequences still exhibit significantly lower $\sigma(d)$ ($11/13$ languages, $p = 4.64 \times 10^{-3}$) and lower $H(d_1, d_2)$ ($13/13$ languages, $W=0, p = 2.44 \times 10^{-4}$) than C/V-preserving permutations. Finally, negative within-word mean--SD correlations and directional triphone asymmetries ($d_1 > d_2$) do not replicate as cross-linguistic phonotactic invariants.
+\end{abstract}
+
+\begin{keywords}
+segmental triphones; distinctive features; contrastive dispersion; quantitative linguistics; phonotactics; cross-linguistic typology
+\end{keywords}
+
+\section{Introduction}
+Phonological systems are shaped by competing functional pressures associated with articulatory economy and perceptual distinctiveness \citep{zipf1949,lindblom1990,flemming2004}. While this trade-off is well established in paradigmatic inventory typology (such as vowel spacing), its quantitative signature in syntagmatic sequencing---across consecutive segments within words---has received comparatively less cross-linguistic scrutiny. It is important to distinguish \emph{paradigmatic dispersion} (how far apart contrasting phonemes sit in an inventory), \emph{sequential feature-space distance} (how much consecutive segments differ in distinctive features), and \emph{syllabic organization} (such as consonant--vowel alternation).
+
+In earlier work on English \citep{araujo2013thesis}, triphones extracted from literary text were analyzed using a discrete distinctive-feature distance, revealing that the joint distribution of adjacent feature distances peaks at intermediate values rather than at extreme similarity or extreme contrast. Focusing on triphones $(\phi_1, \phi_2, \phi_3)$ is motivated on both speech-modeling and analytical grounds. In speech recognition and speech synthesis, triphones model a segment within its immediate left and right phonetic context, capturing short-range co-articulation while scaling more easily across arbitrary vocabularies and typologically diverse languages than full syllable inventories (which grow very large in languages with complex syllable structures). Analytically and statistically, a triphone is the minimal sequential unit that jointly encodes a segment's incoming transition ($d_1$) and outgoing transition ($d_2$) around a central segment $\phi_2$, allowing the joint distribution of consecutive transitions and directional asymmetry to be studied while avoiding the severe data sparsity of longer $n$-grams in moderate-sized corpora.
+
+Here, I scale this distinctive-feature framework to 13 languages across five language families using standardized corpora and universal articulatory feature representations, and introduce two nested permutation baselines: an unrestricted within-word shuffle and a consonant--vowel (C/V) skeleton-preserving shuffle. This design isolates whether sequential feature-distance constraints extend beyond both marginal segment inventories and basic C/V alternation. Specifically, I test whether natural sequences exhibit (H1) an intermediate-distance mode, (H2) higher expected adjacent feature distance than unrestricted shuffles, (H3) narrower dispersion and lower joint entropy even relative to C/V-preserving shuffles, and whether earlier single-language findings---(H4) negative within-word mean--SD correlation and (H5) directional asymmetry ($d_1 > d_2$)---survive cross-linguistic and baseline controls.
+
+\section{Literature Review}
+\subsection{Articulatory Economy and Perceptual Dispersion}
+A central tenet of functional and quantitative linguistics is that phonological systems are governed by a continuous tug-of-war between two opposing communicative forces: \emph{articulatory economy} (for the speaker) and \emph{perceptual distinctiveness} (for the listener). \citet{zipf1949} framed this opposition under the Principle of Least Effort, arguing that speakers naturally favor shorter, less effortful utterances and reduced articulatory gestures, whereas listeners require sufficiently distinct signals to recover the intended message without ambiguity. \citet{martinet1955} developed this insight into a theory of \emph{phonological economy}, proposing that sound systems evolve toward an equilibrium between minimizing the number of articulatory dimensions (syntagmatic and paradigmatic economy) and maintaining functional margins of safety between contrasting phonemes so that communicative distinctions are not lost.
+
+Early quantitative models formalized this equilibrium in static phoneme inventories. \citet{liljencrants1972} simulated vowel systems by placing vowels in a two- or three-dimensional acoustic formant space and maximizing the sum of inverse-square perceptual distances between all pairs of vowels. Despite its simplicity, this maximal-dispersion model successfully predicted the corner-vowel structure of common \mbox{3-}, \mbox{5-}, and \mbox{7-vowel} inventories (such as /i, a, u/). Subsequent work by \citet{lindblom1990} generalized these ideas into the Hyper- and Hypo-articulation (H\&H) theory: rather than aiming for invariant acoustic targets, speakers dynamically modulate articulatory effort along a continuum from \emph{hypo-speech} (economical, undershot gestures when lexical or contextual predictability is high) to \emph{hyper-speech} (precise, effortful articulation when communicative conditions demand high perceptual clarity).
+
+Within constraint-based phonology, \citet{flemming2004} unified these pressures into \emph{Dispersion Theory}, proposing that phonological grammars evaluate candidate contrast sets using three interacting constraints: (1) maximizing the number of contrasts to support a large lexicon, (2) maximizing perceptual distinctiveness (enforcing minimum-distance thresholds between contrasting sounds), and (3) minimizing articulatory effort. Crucially, because maximal perceptual separation often requires extreme or rapid articulatory movements, the interaction of these constraints favors \emph{intermediate} levels of contrast rather than either minimal or maximal separation. While Dispersion Theory and acoustic-space simulations have been extensively tested on static phoneme inventories (especially vowel spacing), far less quantitative work has examined how this same economy--distinctiveness trade-off constrains \emph{sequential} segment-to-segment transitions in running speech across diverse languages.
+
+\subsection{Distinctive Features and Phonetic Distance Metrics}
+In linguistics, a \emph{distinctive feature} is the smallest unit of phonological structure that distinguishes one speech sound (phoneme) from another within a language. Distinctive features correspond to articulatory or acoustic properties---such as vocal-fold vibration, airflow, or tongue position---and are typically grouped into major class, laryngeal, manner, and place features. They are commonly represented with $+$ (presence of a property) or $-$ (absence of a property), such as $[+\text{nasal}]$ versus $[-\text{nasal}]$; for example, the voicing feature $[\pm\text{voice}]$ separates $[\text{p}]$ ($[-\text{voice}]$) from $[\text{b}]$ ($[+\text{voice}]$). Sounds that share a feature form natural classes that pattern together in phonological rules, such as voiceless stops taking aspiration in specific prosodic or syllabic positions. Historically, \citet{trubetzkoy1939} laid the groundwork with his theory of distinctive oppositions, \citet{jakobson1952} developed a binary acoustic distinctive-feature framework, and \citet{chomsky1968} formalized a comprehensive articulatory/phonological feature system in \emph{The Sound Pattern of English} (SPE).
+
+Quantitative and computational phonology have built on these representations to define graded segment-to-segment distances. \citet{kondrak2003} introduced ALINE, using multivalued articulatory features with salience weights for phonetic sequence alignment and cognate identification. More recently, \citet{mortensen2016panphon} developed PanPhon, which maps International Phonetic Alphabet (IPA) segments across languages to uniform 24-dimensional ternary articulatory vectors in $\{-1, 0, +1\}^{24}$. Comparing segments via feature Hamming distance counts discrete feature mismatches directly, whereas $\ell_2$-normalized cosine distance equalizes vector norms across segments that differ in their number of unspecified ($0$) entries---a normalization that has proven effective in cross-linguistic phonetic spelling correction \citep{mortensen2016panphon}. Evaluating both metrics together ensures that observed sequential patterns are not artifacts of feature sparsity.
+
+\subsection{Sequential Phonotactics and Quantitative Controls}
+At the sequential level, syllabic and phonotactic organization is classically governed by the Sonority Sequencing Principle \citep{clements1990}, which favors rises in sonority from syllable onset to nucleus and falls toward the coda---inherently alternating consonant-like and vowel-like articulations. From an acoustic perspective, \citet{kawasakifukumori1992} showed that universal phonotactic preferences reflect acoustic modulation across consecutive segments, disfavoring sequences with minimal spectral change. Computational models of phonotactic learning further demonstrate that speakers induce gradient, constraint-based generalizations over natural classes of features rather than memorizing raw segment $n$-grams \citep{hayes2008}, while corpus-based diachronic studies show that high functional load helps preserve phonological contrasts against merger \citep{wedel2013}. At the lexical level, \citet{dautriche2017} showed across multiple languages that words exhibit structured phonetic clustering beyond baseline phonotactic regularities, highlighting the importance of comparing natural lexicons against controlled null models. In earlier single-language work on English literary text, \citet{araujo2013thesis} observed that token-weighted triphone intradistances peak at intermediate distinctive-feature distances, that word-level mean and standard deviation of inter-phone distances are negatively correlated, and that triphone feature variability appears asymmetric ($d_1 > d_2$). However, without cross-linguistic replication or a within-word permutation baseline, it remained open which of those patterns reflect universal phonotactic constraints and which arise from inventory-level or combinatorial properties. The present study addresses this gap directly.
+
+\section{Methodology}
+\subsection{Corpora and Phonemic Transcription}
+The analysis uses the training splits of 13 Universal Dependencies (UD v2) treebanks \citep{nivre2020universal}: \texttt{UD\_English-EWT} (\texttt{en}), \texttt{UD\_German-GSD} (\texttt{de}), \texttt{UD\_Portuguese-Bosque} (\texttt{pt}), \texttt{UD\_Spanish-GSD} (\texttt{es}), \texttt{UD\_French-GSD} (\texttt{fr}), \texttt{UD\_Polish-PDB} (\texttt{pl}), \texttt{UD\_Russian-GSD} (\texttt{ru}), \texttt{UD\_Hindi-HDTB} (\texttt{hi}), \texttt{UD\_Hungarian-Szeged} (\texttt{hu}), \texttt{UD\_Finnish-TDT} (\texttt{fi}), \texttt{UD\_Turkish-IMST} (\texttt{tr}), \texttt{UD\_Indonesian-GSD} (\texttt{id}), and \texttt{UD\_Korean-GSD} (\texttt{ko}). Non-alphabetic tokens, multiword token ranges, and punctuation (\texttt{UPOS == PUNCT}) were excluded, and remaining word forms were lowercased and counted by token frequency.
+
+For English, word forms were transcribed via the CMU Pronouncing Dictionary (\texttt{cmudict} v1.1.3; 97.0\% token coverage, selecting the primary pronunciation entry when variants exist, stripping lexical stress digits, and mapping ARPAbet phones to IPA). For the remaining 12 languages, orthographic forms were converted to IPA using Epitran v1.35.3 \citep{mortensen2018epitran}, achieving 99.7\%--100.0\% token coverage. Unlike the other 12 languages---which use Epitran's built-in rule-based G2P transducers---English has a deep, irregular orthography for which Epitran relies on an external Flite (\texttt{lex\_lookup}) binary; using CMUdict directly avoids that external dependency while providing curated phonemic transcriptions consistent with \citet{araujo2013thesis}. IPA strings were segmented using PanPhon's \texttt{ipa\_segs()} parser (treating tied affricates and diphthong/base-diacritic combinations recognized by PanPhon as single segments, and skipping unsupported suprasegmental/stress symbols). Feature vectors were extracted with PanPhon v0.22.2, and all numerical computations used NumPy v2.5.5 and SciPy v1.18.1. Note that because these G2P outputs reflect dictionary or rule-based pronunciation transcriptions rather than language-specific phonemic analyses, I refer to the resulting units as transcribed segments throughout.
+
+\subsection{Distinctive-Feature Representation and Triphone Metrics}
+Building on the distinctive-feature framework reviewed in Section~2.2, using articulatory feature vectors rather than atomic phoneme symbols or raw acoustic waveforms is essential for three reasons: (i) atomic symbols treat every pair of distinct segments as equally different, whereas feature vectors yield a graded distance reflecting how many articulatory and perceptual properties two sounds share (for example, /p/ and /b/ differ only in $[\pm\text{voice}]$, whereas /p/ and /a/ differ across major class, manner, and place); (ii) universal features embed segments from typologically unrelated phoneme inventories into a single, directly comparable coordinate space; and (iii) feature representations capture articulatory and perceptual contrast directly from phonemic transcriptions across 13 languages without requiring large-scale, force-aligned acoustic corpora.
+
+Each IPA segment $\phi$ was mapped to a 24-dimensional ternary articulatory feature vector $\mathbf{v}(\phi) \in \{-1, 0, +1\}^{24}$ using PanPhon v0.22.2 \citep[extending the 21-feature core of][with \texttt{velaric}, \texttt{hireg}, and \texttt{hitone}/\texttt{long} dimensions]{mortensen2016panphon}, where $+1$ indicates the presence of a feature, $-1$ indicates its absence, and $0$ indicates that the feature is unspecified or non-applicable.\footnote{In PanPhon's uniform cross-linguistic representation, $0$ prevents false articulatory oppositions when a feature is physically non-applicable to a given sound class---for instance, coronal place features such as \texttt{ant} and \texttt{distr} distinguish consonants like [s] and [\textipa{S}], but are non-applicable to vowels or glottal segments, and tonal features (\texttt{hitone}, \texttt{hireg}) are $0$ for non-tonal segments. Forcing such entries to $-1$ would falsely equate ``not applicable'' with actively possessing the opposite gesture. Because segments vary in their number of $0$ entries, comparing both unnormalized Hamming distance and $\ell_2$-normalized cosine distance ensures our results are not artifacts of feature sparsity.} The 24 features span five phonological dimensions:
+\begin{itemize}
+    \item \emph{Major class (3):} syllabic (\texttt{syl}), sonorant (\texttt{son}), consonantal (\texttt{cons});
+    \item \emph{Manner (5):} continuant (\texttt{cont}), delayed release (\texttt{delrel}), lateral (\texttt{lat}), nasal (\texttt{nas}), strident (\texttt{strid});
+    \item \emph{Laryngeal (3):} voice (\texttt{voi}), spread glottis (\texttt{sg}), constricted glottis (\texttt{cg});
+    \item \emph{Place and vowel quality (8):} anterior (\texttt{ant}), coronal (\texttt{cor}), distributed (\texttt{distr}), labial (\texttt{lab}), high (\texttt{hi}), low (\texttt{lo}), back (\texttt{back}), round (\texttt{round});
+    \item \emph{Airstream, length, and tone (5):} velaric (\texttt{velaric}), tense (\texttt{tense}), long (\texttt{long}), high tone (\texttt{hitone}), high register (\texttt{hireg}).
+\end{itemize}
+
+To ensure that our findings are not artifacts of a single distance formulation, we evaluate two complementary feature-vector metrics:
+\begin{enumerate}
+    \item \emph{Feature Hamming distance:} the number of non-shared distinctive features,
+    \begin{equation}
+    d_{\text{H}}(\phi_a, \phi_b) = \sum_{i=1}^{24} \mathbf{1}_{\{v_i(\phi_a) \neq v_i(\phi_b)\}} \text{.}
+    \end{equation}
+    \item \emph{Rescaled cosine distance:} normalized by the $\ell_2$ norm of each segment vector to equalize magnitudes across segments with different numbers of unspecified ($0$) entries,
+    \begin{equation}
+    d_{\cos}(\phi_a, \phi_b) = \frac{1}{2}\left(1 - \frac{\mathbf{v}(\phi_a) \cdot \mathbf{v}(\phi_b)}{\lVert\mathbf{v}(\phi_a)\rVert_2 \, \lVert\mathbf{v}(\phi_b)\rVert_2}\right) \in [0, 1] \text{.}
+    \end{equation}
+    For joint entropy and modal peak estimation under $d_{\cos}$, the interval $[0, 1]$ is discretized into $20$ uniform bins of width $0.05$.
+\end{enumerate}
+
+For every word of phonemic length $L \geq 3$ with segment sequence $(\phi_1, \dots, \phi_L)$ and corpus token count $w$, adjacent distances $d_i = d(\phi_i, \phi_{i+1})$ are computed for $i=1,\dots,L-1$, and all contiguous triphones $(\phi_i, \phi_{i+1}, \phi_{i+2})$ ($i=1,\dots,L-2$) with intradistance pair $(d_i, d_{i+1})$ are extracted and weighted by $w$. Note that the overall expected value $\mathbb{E}[d]$ and standard deviation $\sigma(d)$ in Tables~\ref{tab:comparison}--\ref{tab:cosine} are computed across all $L-1$ adjacent transitions per word, whereas $\mathbb{E}[d_1]$ and $\mathbb{E}[d_2]$ in Table~\ref{tab:corpora} average over the $L-2$ triphone windows (so $d_1$ excludes the word-final transition $d_{L-1}$ and $d_2$ excludes the word-initial transition $d_1$). From the token-weighted empirical distribution $P(d_1, d_2)$, the following metrics are computed:
+\begin{itemize}
+    \item The modal intradistance pair $(d_1^*, d_2^*) = \arg\max_{(d_1,d_2) \in \mathcal{D}} P(d_1, d_2)$, where $\mathcal{D} = \{0,\dots,24\}^2$ for $d_{\text{H}}$ (or the $20 \times 20$ bin grid for $d_{\cos}$);
+    \item The expected value $\mathbb{E}[d]$ and standard deviation $\sigma(d)$ of adjacent transitions;
+    \item The joint Shannon entropy $H(d_1, d_2) = -\sum_{d_1,d_2} P(d_1, d_2)\log_2 P(d_1, d_2)$ (in bits);
+    \item The within-word Pearson correlation $r$ between the mean and standard deviation of $\{d_1,\dots,d_{L-1}\}$;
+    \item The middle-phone directional asymmetry, comparing $\mathbb{E}[d_1 \mid \phi_2]$ against $\mathbb{E}[d_2 \mid \phi_2]$ across middle segments $\phi_2$ with token weight $\geq 50$ via a paired Wilcoxon signed-rank test.
+\end{itemize}
+
+\subsection{Nested Permutation Baselines and Inferential Testing}
+To separate genuine phonotactic ordering from marginal phoneme frequencies, word-length effects, and basic consonant--vowel (C/V) alternation, I construct two nested permutation baselines:
+\begin{enumerate}
+    \item \emph{Unrestricted within-word shuffle:} for each word type, its segment sequence $(\phi_1,\dots,\phi_L)$ is randomly permuted while preserving its exact segment multiset and token count $w$. Tables~\ref{tab:comparison}--\ref{tab:cosine} report a fixed-seed permutation (\texttt{seed=42}), and 20 independent Monte Carlo seeds (\texttt{1000--1019}) are run per language to quantify shuffle variance.
+    \item \emph{C/V-skeleton-preserving baseline:} each segment is classified by PanPhon's syllabic feature as vocalic (\texttt{syl} $= +1$) or non-vocalic (\texttt{syl} $\neq +1$). Every word's exact C/V skeleton is held fixed while permuting all C tokens across C positions and all V tokens across V positions in the corpus (\texttt{seed=42}). Any residual difference between natural text and this C/V-preserving baseline reflects sub-syllabic feature sequencing beyond C/V alternation.
+\end{enumerate}
+Cross-linguistic consistency across the $n=13$ languages is evaluated using two-sided paired Wilcoxon signed-rank tests and exact binomial sign tests.
+
+\section{Results}
+Table~\ref{tab:corpora} summarizes the corpus statistics and triphone peaks across the 13 languages, and Figure~\ref{fig:heatmaps} displays the empirical joint distributions $P(d_1, d_2)$. In every language, $P(d_1, d_2)$ concentrates sharply around an intermediate-distance peak at $(d_1^*, d_2^*) \in \{(8,8), (9,9), (9,10), (10,10)\}$, with very low mass at small ($d \leq 3$) or large ($d \geq 14$) feature distances.
+
+\begin{table}[htbp]
+\tbl{Corpus statistics, modal triphone intradistance peak $(d_1^*, d_2^*)$, and directional asymmetry across 13 languages.}
+{\begin{tabular}{llrrrrcc}
+\toprule
+Language & Family & Tokens & Cov. & Triphones & Peak $(d_1^*, d_2^*)$ & $\mathbb{E}[d_1], \mathbb{E}[d_2]$ & Mid $d_1>d_2$ ($p$) \\
+\midrule
+English (\texttt{en})    & IE (Germanic)    & 176,883 & 97.0\%  & 323,359 & $(8,8)$ (5.3\%)  & 7.60, 7.25 & 58.8\% (0.30) \\
+German (\texttt{de})     & IE (Germanic)    & 222,741 & 99.98\% & 718,194 & $(9,10)$ (4.9\%) & 8.31, 7.99 & 48.0\% (0.72) \\
+Portuguese (\texttt{pt}) & IE (Romance)     & 146,957 & 99.86\% & 396,625 & $(9,9)$ (9.7\%)  & 8.00, 7.93 & 45.5\% (0.76) \\
+Spanish (\texttt{es})    & IE (Romance)     & 331,365 & 99.86\% & 916,794 & $(9,9)$ (7.9\%)  & 8.35, 8.43 & 50.0\% (0.62) \\
+French (\texttt{fr})     & IE (Romance)     & 307,316 & 99.95\% & 571,087 & $(9,9)$ (5.1\%)  & 8.38, 8.17 & 62.9\% (0.29) \\
+Polish (\texttt{pl})     & IE (Slavic)      & 232,578 & 100.0\% & 841,156 & $(9,9)$ (6.6\%)  & 8.25, 8.30 & 43.2\% (0.89) \\
+Russian (\texttt{ru})    & IE (Slavic)      &  58,306 & 99.98\% & 246,454 & $(9,9)$ (7.8\%)  & 8.57, 8.38 & 54.8\% (0.99) \\
+Hindi (\texttt{hi})      & IE (Indo-Aryan)  & 259,658 & 100.0\% & 589,202 & $(10,10)$ (4.8\%)& 8.52, 8.44 & 40.4\% (0.03) \\
+Hungarian (\texttt{hu})  & Uralic           &  17,043 & 100.0\% &  66,747 & $(9,9)$ (5.7\%)  & 8.77, 8.76 & 56.5\% (0.44) \\
+Finnish (\texttt{fi})    & Uralic           & 135,519 & 99.97\% & 660,825 & $(9,9)$ (4.8\%)  & 8.27, 8.33 & 64.5\% (0.33) \\
+Turkish (\texttt{tr})    & Turkic           &  30,973 & 100.0\% & 127,704 & $(9,9)$ (9.4\%)  & 8.34, 8.39 & 44.8\% (0.98) \\
+Indonesian (\texttt{id}) & Austronesian     &  80,944 & 99.93\% & 303,829 & $(10,10)$ (9.0\%)& 8.73, 8.65 & 40.7\% (0.41) \\
+Korean (\texttt{ko})     & Koreanic         &  49,011 & 99.67\% & 241,967 & $(9,9)$ (6.7\%)  & 8.38, 8.28 & 58.6\% (0.92) \\
+\bottomrule
+\end{tabular}}
+\label{tab:corpora}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/triphone_heatmaps.pdf}
+\caption{Empirical joint probability distributions $P(d_1, d_2)$ of adjacent distinctive-feature distances in phonemic triphones across 13 languages. All languages exhibit a sharp peak at intermediate distances ($8$--$10$ features).}
+\label{fig:heatmaps}
+\end{figure}
+
+Comparing natural text against the within-word shuffled baseline (Table~\ref{tab:comparison} and Figure~\ref{fig:comparison}) reveals three consistent effects in 13 out of 13 languages (two-sided exact binomial sign test and paired Wilcoxon signed-rank test across $n=13$ languages: $W=0$, $p = 2.44 \times 10^{-4}$ for all three metrics):
+\begin{enumerate}
+    \item \emph{Upward shift in adjacent contrast:} Natural phonotactics increases the expected adjacent feature distance ($\mathbb{E}[d]_{\text{real}} > \mathbb{E}[d]_{\text{shuf}}$) in every language, by $+0.52$ (English) to $+1.63$ (Hungarian) features.
+    \item \emph{Narrower distance dispersion:} Natural words have consistently lower standard deviation $\sigma(d)$ than their shuffled counterparts (e.g., $2.24$ vs.\ $3.14$ in Portuguese; $2.33$ vs.\ $3.31$ in Hungarian).
+    \item \emph{Reduced joint entropy:} The joint entropy $H(d_1, d_2)$ drops by $0.52$ to $1.00$ bits in natural text relative to shuffled words, demonstrating that phonotactic sequencing actively concentrates transitions into the intermediate-distance band.
+\end{enumerate}
+Across 20 independent Monte Carlo shuffle seeds per language, the shuffle standard deviations are negligible ($\text{SD}_{\text{shuf}} \in [0.015, 0.052]$ for $\mathbb{E}[d]$, $[0.007, 0.027]$ for $\sigma(d)$, and $[0.005, 0.025]$ bits for $H(d_1, d_2)$), confirming that every single language's real-versus-shuffled gap far exceeds permutation noise ($W=0$, $p = 2.44 \times 10^{-4}$ against the 20-seed shuffle means). Moreover, all three 13/13 directional contrasts hold identically when subsampling every corpus to $17{,}000$ tokens (matching Hungarian, the smallest treebank; \texttt{seed=123}) and when weighting triphones by unique word types rather than corpus tokens.
+
+By contrast, two patterns from single-language analyses do not hold as universal phonotactic laws under cross-linguistic and baseline controls. First, while the within-word correlation $r$ between mean distance and standard deviation is negative in all 13 languages ($r \in [-0.492, -0.251]$), virtually identical negative correlations appear in the shuffled baseline ($r_{\text{shuf}} \in [-0.512, -0.280]$), indicating a combinatorial property of finite bounded sequences rather than a uniquely phonotactic constraint. Second, the directional asymmetry $d_1 > d_2$ observed in English ($\mathbb{E}[d_1]=7.60 > \mathbb{E}[d_2]=7.25$) is absent or slightly reversed in several languages (e.g., Spanish, Polish, Turkish, Finnish). For Hindi, although the token-weighted mean is slightly higher for $d_1$ ($\mathbb{E}[d_1]=8.52 > \mathbb{E}[d_2]=8.44$), only $40.4\%$ of middle phones exhibit $d_1 > d_2$ (i.e., $59.6\%$ exhibit $d_1 < d_2$, uncorrected $p=0.033$); after Holm--Bonferroni correction across the 13 languages ($\alpha/13 = 0.0038$), none of the 13 languages show statistically significant per-middle-phone directional asymmetry.
+
+\begin{table}[htbp]
+\tbl{Comparison of natural text against the within-word shuffled baseline across 13 languages.}
+{\begin{tabular}{lcccccccc}
+\toprule
+Language & \multicolumn{2}{c}{$\mathbb{E}[d]$} & \multicolumn{2}{c}{$\sigma(d)$} & \multicolumn{2}{c}{$H(d_1, d_2)$ (bits)} & \multicolumn{2}{c}{Word $r$} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}
+ & Real & Shuf. & Real & Shuf. & Real & Shuf. & Real & Shuf. \\
+\midrule
+English    & \textbf{7.43} & 6.91 & \textbf{2.65} & 2.97 & \textbf{6.05} & 6.71 & $-0.475$ & $-0.479$ \\
+German     & \textbf{8.15} & 7.23 & \textbf{2.70} & 3.10 & \textbf{6.47} & 7.02 & $-0.377$ & $-0.356$ \\
+Portuguese & \textbf{8.06} & 6.81 & \textbf{2.24} & 3.14 & \textbf{5.82} & 6.79 & $-0.428$ & $-0.512$ \\
+Spanish    & \textbf{8.54} & 7.10 & \textbf{2.33} & 3.30 & \textbf{5.85} & 6.78 & $-0.492$ & $-0.508$ \\
+French     & \textbf{8.33} & 7.00 & \textbf{2.25} & 2.99 & \textbf{6.14} & 7.01 & $-0.298$ & $-0.360$ \\
+Polish     & \textbf{8.27} & 7.20 & \textbf{2.65} & 3.18 & \textbf{6.47} & 7.10 & $-0.315$ & $-0.321$ \\
+Russian    & \textbf{8.43} & 7.07 & \textbf{2.71} & 3.39 & \textbf{6.26} & 7.10 & $-0.440$ & $-0.423$ \\
+Hindi      & \textbf{8.63} & 7.48 & \textbf{2.63} & 3.17 & \textbf{6.52} & 7.04 & $-0.441$ & $-0.437$ \\
+Hungarian  & \textbf{8.80} & 7.17 & \textbf{2.33} & 3.31 & \textbf{6.13} & 7.13 & $-0.251$ & $-0.390$ \\
+Finnish    & \textbf{8.43} & 7.01 & \textbf{2.75} & 3.54 & \textbf{6.43} & 7.16 & $-0.361$ & $-0.385$ \\
+Turkish    & \textbf{8.47} & 6.90 & \textbf{2.39} & 3.37 & \textbf{6.08} & 6.97 & $-0.363$ & $-0.432$ \\
+Indonesian & \textbf{8.75} & 7.20 & \textbf{2.36} & 3.33 & \textbf{5.87} & 6.82 & $-0.407$ & $-0.418$ \\
+Korean     & \textbf{8.46} & 7.05 & \textbf{2.80} & 3.48 & \textbf{6.58} & 7.26 & $-0.270$ & $-0.280$ \\
+\bottomrule
+\end{tabular}}
+\label{tab:comparison}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/real_vs_shuffled_comparison.pdf}
+\caption{Natural text vs.\ within-word shuffled baseline across 13 languages under feature Hamming distance $d_{\text{H}}$: expected adjacent distance $\mathbb{E}[d]$, standard deviation $\sigma(d)$, joint triphone distance entropy $H(d_1, d_2)$, and word-level mean--std correlation $r$.}
+\label{fig:comparison}
+\end{figure}
+
+\subsection{Robustness Under Cosine Distance}
+To verify that the observed phonotactic dispersion pattern is not driven by shared unspecified ($0$) entries in sparse consonant feature vectors, we repeated the full 13-language analysis using the $\ell_2$-normalized rescaled cosine distance $d_{\cos} \in [0, 1]$. As shown in Table~\ref{tab:cosine} and Figure~\ref{fig:cosine}, every single finding replicates across all 13 languages: natural text exhibits an intermediate-distance peak at $(d_{\cos,1}^*, d_{\cos,2}^*) \in [0.28, 0.38]$, a higher mean contrast ($\mathbb{E}[d_{\cos}]_{\text{real}} > \mathbb{E}[d_{\cos}]_{\text{shuf}}$ in 13/13 languages), a narrower dispersion ($\sigma(d_{\cos})_{\text{real}} < \sigma(d_{\cos})_{\text{shuf}}$ in 13/13 languages), and a reduced joint entropy ($H_{\text{real}} < H_{\text{shuf}}$ by $0.32$ to $0.72$ bits in 13/13 languages). Moreover, under $d_{\cos}$, the magnitude of the within-word correlation $|r|$ is consistently \emph{smaller} in natural text than in the shuffled baseline across all 13 languages, further confirming that negative $r$ is a combinatorial baseline artifact rather than a phonotactic law.
+
+\begin{table}[htbp]
+\tbl{Robustness check under rescaled cosine distance $d_{\cos} \in [0,1]$: natural text vs.\ within-word shuffled baseline across 13 languages.}
+{\begin{tabular}{lccccccccc}
+\toprule
+Language & Peak $(d_{\cos,1}^*, d_{\cos,2}^*)$ & \multicolumn{2}{c}{$\mathbb{E}[d_{\cos}]$} & \multicolumn{2}{c}{$\sigma(d_{\cos})$} & \multicolumn{2}{c}{$H(d_{\cos,1}, d_{\cos,2})$} & \multicolumn{2}{c}{Word $r_{\cos}$} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+ & & Real & Shuf. & Real & Shuf. & Real & Shuf. & Real & Shuf. \\
+\midrule
+English    & $(0.33, 0.33)$ & \textbf{0.290} & 0.277 & \textbf{0.097} & 0.112 & \textbf{5.53} & 6.06 & $-0.355$ & $-0.432$ \\
+German     & $(0.28, 0.28)$ & \textbf{0.315} & 0.286 & \textbf{0.099} & 0.115 & \textbf{5.85} & 6.28 & $-0.186$ & $-0.263$ \\
+Portuguese & $(0.28, 0.28)$ & \textbf{0.300} & 0.263 & \textbf{0.086} & 0.117 & \textbf{5.49} & 6.20 & $-0.231$ & $-0.379$ \\
+Spanish    & $(0.38, 0.38)$ & \textbf{0.322} & 0.274 & \textbf{0.090} & 0.123 & \textbf{5.52} & 6.18 & $-0.355$ & $-0.414$ \\
+French     & $(0.33, 0.33)$ & \textbf{0.322} & 0.279 & \textbf{0.094} & 0.116 & \textbf{5.69} & 6.26 & $-0.324$ & $-0.338$ \\
+Polish     & $(0.38, 0.38)$ & \textbf{0.323} & 0.289 & \textbf{0.105} & 0.123 & \textbf{5.89} & 6.38 & $-0.227$ & $-0.251$ \\
+Russian    & $(0.38, 0.38)$ & \textbf{0.324} & 0.279 & \textbf{0.105} & 0.128 & \textbf{5.79} & 6.37 & $-0.296$ & $-0.332$ \\
+Hindi      & $(0.33, 0.28)$ & \textbf{0.328} & 0.292 & \textbf{0.106} & 0.120 & \textbf{6.07} & 6.39 & $-0.251$ & $-0.302$ \\
+Hungarian  & $(0.33, 0.33)$ & \textbf{0.339} & 0.285 & \textbf{0.093} & 0.126 & \textbf{5.71} & 6.41 & $-0.089$ & $-0.291$ \\
+Finnish    & $(0.38, 0.38)$ & \textbf{0.318} & 0.271 & \textbf{0.106} & 0.132 & \textbf{5.83} & 6.39 & $-0.204$ & $-0.280$ \\
+Turkish    & $(0.38, 0.38)$ & \textbf{0.315} & 0.264 & \textbf{0.097} & 0.127 & \textbf{5.78} & 6.31 & $-0.242$ & $-0.329$ \\
+Indonesian & $(0.38, 0.38)$ & \textbf{0.335} & 0.283 & \textbf{0.091} & 0.126 & \textbf{5.46} & 6.18 & $-0.263$ & $-0.348$ \\
+Korean     & $(0.38, 0.38)$ & \textbf{0.336} & 0.288 & \textbf{0.112} & 0.137 & \textbf{6.04} & 6.62 & $-0.176$ & $-0.224$ \\
+\bottomrule
+\end{tabular}}
+\label{tab:cosine}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/real_vs_shuffled_cosine.pdf}
+\caption{Natural text vs.\ within-word shuffled baseline across 13 languages under rescaled cosine distance $d_{\cos}$: expected distance $\mathbb{E}[d_{\cos}]$, standard deviation $\sigma(d_{\cos})$, and joint triphone distance entropy $H(d_{\cos,1}, d_{\cos,2})$.}
+\label{fig:cosine}
+\end{figure}
+
+\subsection{Separating C/V Alternation from Sub-Syllabic Sequencing}
+To test whether the three real-versus-shuffled differences are merely by-products of consonant--vowel (C/V) alternation, Table~\ref{tab:cv_decomp} compares natural text against both the C/V-skeleton-preserving baseline and the unrestricted within-word shuffle. The two-stage comparison reveals a sharp functional dissociation:
+\begin{itemize}
+    \item \emph{Expected contrast $\mathbb{E}[d]$ is driven by the C/V skeleton:} once each word's C/V skeleton is preserved, $\mathbb{E}[d]_{\text{real}}$ exceeds $\mathbb{E}[d]_{\text{CV}}$ in only $6/13$ languages ($W = 44.0$, $p = 0.946$). Thus, the upward shift in expected adjacent feature distance relative to unrestricted shuffles is fully explained by C/V alternation.
+    \item \emph{Dispersion $\sigma(d)$ and joint entropy $H(d_1, d_2)$ retain a sub-syllabic signal:} even after locking every word's exact C/V skeleton, natural sequences still exhibit significantly lower $\sigma(d)$ in $11/13$ languages ($W = 7.0$, $p = 4.64 \times 10^{-3}$) and lower joint entropy $H(d_1, d_2)$ in $13/13$ languages ($W = 0.0$, $p = 2.44 \times 10^{-4}$).
+\end{itemize}
+
+\begin{table}[htbp]
+\tbl{Decomposition of sequential feature-distance constraints: natural text vs.\ C/V-skeleton-preserving baseline vs.\ unrestricted within-word shuffle (Hamming distance $d_{\text{H}}$).}
+{\begin{tabular}{lccccccccc}
+\toprule
+Language & \multicolumn{3}{c}{$\mathbb{E}[d]$} & \multicolumn{3}{c}{$\sigma(d)$} & \multicolumn{3}{c}{$H(d_1, d_2)$ (bits)} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+ & Real & C/V & Unrest. & Real & C/V & Unrest. & Real & C/V & Unrest. \\
+\midrule
+English    & 7.43 & 7.54 & 6.91 & \textbf{2.65} & 2.82 & 2.97 & \textbf{6.05} & 6.49 & 6.71 \\
+German     & 8.15 & 8.07 & 7.22 & \textbf{2.70} & 2.94 & 3.12 & \textbf{6.47} & 6.76 & 7.03 \\
+Portuguese & 8.06 & 8.12 & 6.83 & \textbf{2.24} & 2.36 & 3.15 & \textbf{5.82} & 5.98 & 6.79 \\
+Spanish    & 8.54 & 8.41 & 7.12 & \textbf{2.33} & 2.60 & 3.34 & \textbf{5.85} & 6.13 & 6.79 \\
+French     & 8.33 & 8.10 & 7.06 & \textbf{2.25} & 2.51 & 2.96 & \textbf{6.14} & 6.47 & 6.98 \\
+Polish     & 8.27 & 8.39 & 7.20 & \textbf{2.65} & 2.67 & 3.19 & \textbf{6.47} & 6.60 & 7.11 \\
+Russian    & 8.43 & 8.43 & 7.11 & \textbf{2.71} & 2.78 & 3.38 & \textbf{6.26} & 6.49 & 7.09 \\
+Hindi      & 8.63 & 8.70 & 7.38 & 2.63 & \textbf{2.58} & 3.19 & \textbf{6.52} & 6.54 & 7.10 \\
+Hungarian  & 8.80 & 8.78 & 7.17 & \textbf{2.33} & 2.45 & 3.32 & \textbf{6.13} & 6.29 & 7.14 \\
+Finnish    & 8.43 & 8.46 & 6.99 & \textbf{2.75} & 2.93 & 3.54 & \textbf{6.43} & 6.59 & 7.18 \\
+Turkish    & 8.47 & 8.50 & 6.88 & 2.39 & \textbf{2.36} & 3.37 & \textbf{6.08} & 6.18 & 6.96 \\
+Indonesian & 8.75 & 8.73 & 7.21 & \textbf{2.36} & 2.47 & 3.32 & \textbf{5.87} & 6.03 & 6.83 \\
+Korean     & 8.46 & 8.37 & 7.03 & \textbf{2.80} & 2.82 & 3.46 & \textbf{6.58} & 6.77 & 7.23 \\
+\bottomrule
+\end{tabular}}
+\label{tab:cv_decomp}
+\end{table}
+
+\subsection{Cross-Linguistic Differences in Peak Sharpness}
+Visual inspection of Figure~\ref{fig:heatmaps} suggests that some languages (such as Portuguese, Turkish, Indonesian, and Spanish) exhibit a noticeably sharper, denser modal peak than others (such as German, Hindi, French, and Finnish). To quantify this difference beyond visual impression, we computed the probability mass in the $3 \times 3$ neighborhood centered on the modal peak $(d_1^*, d_2^*)$ alongside two candidate structural predictors: the effective phoneme inventory size $|P|$ (unique IPA segments observed in the corpus) and the proportion of strictly alternating CVC/VCV triphones (based on PanPhon's syllabic feature \texttt{syl}).
+
+The quantitative metrics confirm the visual pattern: Portuguese (38.6\% in the $3 \times 3$ peak neighborhood; $H = 5.82$ bits), Spanish (38.1\%; $H = 5.85$ bits), Indonesian (37.2\%; $H = 5.87$ bits), and Turkish (37.0\%; $H = 6.08$ bits) concentrate substantially more mass around the mode than Hindi (24.6\%; $H = 6.52$ bits), German (25.9\%; $H = 6.47$ bits), Polish (27.1\%; $H = 6.47$ bits), or English (29.0\%; $H = 6.05$ bits). Across the 13 languages, these exploratory correlations do not reach statistical significance at $\alpha = 0.05$ given the small sample of languages ($n=13$), but peak sharpness trends positively with CVC/VCV alternation ($r = +0.482$, $p = 0.095$ for $3 \times 3$ peak mass; $r = +0.416$, $p = 0.157$ for modal cell probability) and negatively with effective inventory size ($r = -0.437$, $p = 0.136$ for modal cell probability). Together, these two structural tendencies help interpret the observed cross-linguistic variation: languages combining moderate inventories ($|P| = 32\text{--}44$) with high CVC/VCV alternation ($61\text{--}73\%$, e.g., Turkish, Indonesian, Portuguese, Spanish) channel most transitions into C--V and V--C steps of similar feature distance, whereas heavy consonant-cluster languages (English 49.2\%, German 52.9\% CVC/VCV) and large-inventory languages with secondary contrasts such as aspiration or nasal/front-rounded vowels (Hindi $|P|=64$, Hungarian $|P|=63$, German $|P|=59$, French $|P|=51$) spread probability mass across a broader range of $(d_1, d_2)$ cells.
+
+\section{Discussion and Limitations}
+These cross-linguistic results clarify how sequential feature-space organization relates to classical dispersion principles. Relative to unrestricted within-word permutations, natural sequences across all 13 languages exhibit higher expected adjacent feature distance, lower standard deviation, and lower joint triphone entropy under both Hamming and $\ell_2$-normalized cosine metrics ($W=0, p=2.44\times 10^{-4}$). Crucially, the C/V-skeleton-preserving control decomposes this effect into two distinct components: the upward shift in $\mathbb{E}[d]$ is fully accounted for by C/V alternation ($p=0.946$), whereas natural sequences still exhibit significantly narrower dispersion ($\sigma(d)$, $11/13$ languages, $p=4.64\times 10^{-3}$) and lower joint entropy ($H(d_1,d_2)$, $13/13$ languages, $p=2.44\times 10^{-4}$) than C/V-preserving permutations. This indicates that phonotactic sequencing imposes sub-syllabic constraints on adjacent feature transitions beyond coarse C/V alternation alone. At the same time, because discrete feature distances do not directly measure physical articulatory displacement or acoustic discriminability, these patterns should be interpreted as distinctive-feature-space constraints consistent with economy--distinctiveness accounts \citep{lindblom1990,flemming2004,kawasakifukumori1992}, rather than direct proof of physical optimization.
+
+Several limitations qualify these findings. First, the 13-language sample is genealogically unbalanced (8 Indo-European languages vs.\ 5 across Uralic, Turkic, Austronesian, and Koreanic), so cross-linguistic consistency across these 13 corpora should not be overinterpreted as a universal law without broader typological sampling. Second, English used curated CMUdict transcriptions whereas the other 12 languages used rule-based Epitran G2P; although Epitran performs well on transparent orthographies, G2P approximations can miss lexicalized reductions or loanword pronunciations, and unvocalized abjads (such as Arabic) were excluded. Third, the analysis examines word-internal triphones in written UD corpora rather than continuous multi-word speech (which includes cross-word boundary transitions) or acoustic recordings.
+
+\section{Conclusion}
+This study provides cross-linguistic evidence that natural phonological sequences exhibit a more constrained distribution of adjacent distinctive-feature distances than expected from unrestricted within-word permutations preserving segment inventories and word lengths. Across 13 languages, natural sequences consistently show higher expected adjacent distances, lower distance variability, and reduced joint triphone entropy under both Hamming and normalized cosine metrics. A C/V-skeleton-preserving baseline further demonstrates that while C/V alternation explains the upward shift in expected contrast, sub-syllabic phonotactic sequencing further compresses distance dispersion (11/13 languages) and joint entropy (13/13 languages). Future work employing broader genealogical sampling, cross-word utterance boundaries, and direct acoustic measurements will help separate general contrastive-dispersion principles from language-specific phonotactic rules.
+
+\section*{Data and Code Availability}
+All Universal Dependencies v2 treebanks used in this study are publicly available from the Universal Dependencies repository (\url{https://universaldependencies.org/}). All Python analysis scripts (\texttt{analyze\_crosslinguistic.py}, \texttt{analyze\_cosine.py}, \texttt{analyze\_peak\_sharpness.py}, \texttt{analyze\_cv\_baseline.py}, \texttt{run\_robustness\_checks.py}), generated summary tables, and figures are publicly available at \url{https://github.com/leolca/triphone_feature_distance}.
+
+\section*{Disclosure Statement}
+No potential conflict of interest was reported by the author.
+
+\section*{Declaration of Generative AI and AI-Assisted Technologies}
+During the preparation of this work, the author used an AI assistant (Gemini) to assist with Python scripting for corpus processing and initial LaTeX drafting. After using this tool, the author reviewed, verified, and edited all code, statistical results, citations, and manuscript text, and takes full responsibility for the content of the published article.
+
+\bibliographystyle{apacite}
+\bibliography{paper}
+
+\end{document}

@@ -101,11 +101,11 @@ def main():
     df = pd.DataFrame(rows)
     df.to_csv("results/cv_baseline.csv", index=False)
 
-    print("\n--- Real vs CV-skeleton-preserving baseline (Wilcoxon across n=13) ---")
+    print("\n--- Real vs CV-skeleton-preserving baseline (Wilcoxon across n=17) ---")
     for label, cr, cc in [("E[d]", "Ed_real", "Ed_cv"), ("std(d)", "sd_real", "sd_cv"), ("H(d1,d2)", "H_real", "H_cv")]:
         w, p = stats.wilcoxon(df[cr], df[cc])
         n_gt = int((df[cr] > df[cc]).sum())
-        print(f"{label:10s}: real>cv in {n_gt}/13 | W={w}, p={p:.4e}")
+        print(f"{label:10s}: real>cv in {n_gt}/17 | W={w}, p={p:.4e}")
 
 
 if __name__ == "__main__":

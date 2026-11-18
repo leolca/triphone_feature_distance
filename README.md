@@ -22,7 +22,7 @@ To isolate genuine sequential phonotactic constraints from marginal phoneme freq
 
 ## 2. Data and Languages
 
-Word forms and corpus token frequencies are extracted from the training splits of **13 Universal Dependencies (UD v2) treebanks** spanning five language families (excluding punctuation `UPOS == PUNCT`, multiword token ranges, and non-alphabetic tokens):
+Word forms and corpus token frequencies are extracted from **17 Universal Dependencies (UD v2) treebanks** spanning nine language families (9 non-Indo-European and 8 Indo-European; excluding punctuation `UPOS == PUNCT`, multiword token ranges, and non-alphabetic tokens):
 
 | Code | Language | Family | UD v2 Treebank | G2P / Lexicon | Token Coverage |
 | :--- | :--- | :--- | :--- | :--- | :---: |
@@ -39,6 +39,10 @@ Word forms and corpus token frequencies are extracted from the training splits o
 | `tr` | Turkish | Turkic | `UD_Turkish-IMST` | `epitran` (`tur-Latn`) | 100.0% |
 | `id` | Indonesian | Austronesian | `UD_Indonesian-GSD` | `epitran` (`ind-Latn`) | 99.93% |
 | `ko` | Korean | Koreanic | `UD_Korean-GSD` | `epitran` (`kor-Hang`) | 99.67% |
+| `ta` | Tamil | Dravidian | `UD_Tamil-TTB` | `epitran` (`tam-Taml`) | 100.0% |
+| `mt` | Maltese | Afro-Asiatic (Semitic) | `UD_Maltese-MUDT` | `epitran` (`mlt-Latn`) | 100.0% |
+| `vi` | Vietnamese | Austroasiatic | `UD_Vietnamese-VTB` | `epitran` (`vie-Latn`) | 100.0% |
+| `yo` | Yoruba | Niger-Congo | `UD_Yoruba-YTB` | `epitran` (`yor-Latn`) | 100.0% |
 
 *(Raw `.conllu` files are excluded from git via `.gitignore` and can be downloaded from [universaldependencies.org](https://universaldependencies.org/).)*
 
@@ -46,9 +50,9 @@ Word forms and corpus token frequencies are extracted from the training splits o
 
 ## 3. Main Findings
 
-1. **Universal intermediate-distance mode:** Across all 13 languages, the token-weighted joint triphone distance distribution $P(d_1, d_2)$ peaks at intermediate feature distances—$(d_1^*, d_2^*) \in \{(8,8), (9,9), (9,10), (10,10)\}$ under Hamming distance and $[0.28, 0.38]$ under rescaled cosine distance.
-2. **Consistent real vs. unrestricted-shuffle differences (13/13 languages):** Relative to unrestricted within-word permutations, natural text exhibits higher expected adjacent distance ($\mathbb{E}[d]$), lower standard deviation ($\sigma(d)$), and lower joint triphone entropy ($H(d_1, d_2)$) in all 13 languages under both metrics (paired Wilcoxon $W=0, p = 2.44 \times 10^{-4}$). These results hold across 20 Monte Carlo shuffle seeds, 17k-token subsampling, and type-weighted analyses.
-3. **Separating C/V alternation from sub-syllabic sequencing:** Under the C/V-template-preserving baseline, the upward shift in $\mathbb{E}[d]$ disappears ($6/13$ languages, $p = 0.946$), showing it is driven by C/V alternation. However, natural sequences still show significantly narrower dispersion $\sigma(d)$ ($11/13$ languages, $p = 4.64 \times 10^{-3}$) and lower joint entropy $H(d_1, d_2)$ ($13/13$ languages, $W=0, p = 2.44 \times 10^{-4}$), revealing sub-syllabic feature-sequencing constraints beyond C/V alternation.
+1. **Intermediate-distance mode:** Across 16 of 17 languages, the token-weighted joint triphone distance distribution $P(d_1, d_2)$ peaks at intermediate feature distances—$(d_1^*, d_2^*) \in \{(8,8), (9,9), (9,10), (10,10)\}$ under Hamming distance (Vietnamese peaks at $(10,6)$) and $[0.28, 0.38]$ under rescaled cosine distance.
+2. **Consistent real vs. unrestricted-shuffle differences (17/17 languages, 9/9 families):** Relative to unrestricted within-word permutations, natural text exhibits higher expected adjacent distance ($\mathbb{E}[d]$), lower standard deviation ($\sigma(d)$), and lower joint triphone entropy ($H(d_1, d_2)$) in all 17 languages under both metrics (paired Wilcoxon $W=0, p = 1.53 \times 10^{-5}$). These results hold across 20 Monte Carlo shuffle seeds, 17k-token subsampling, type-weighted analyses, salience-weighted features, and partial Hamming.
+3. **Separating C/V alternation from sub-syllabic sequencing:** Under the C/V-template-preserving baseline, the upward shift in $\mathbb{E}[d]$ disappears ($7/17$ languages, $p = 0.579$) and $\sigma(d)$ is no longer uniformly lower ($12/17$ languages, $p = 0.329$). However, natural sequences still show significantly lower joint entropy $H(d_1, d_2)$ in **17/17 languages** ($W=0, p = 1.53 \times 10^{-5}$; and **14/17 languages**, $p = 3.85 \times 10^{-3}$, even when excluding major-class features `syl`, `son`, `cons`), revealing sub-syllabic feature-sequencing constraints beyond C/V alternation.
 4. **Negative replications of single-language patterns:** The negative within-word mean–SD correlation ($r$) appears similarly in shuffled baselines (indicating a combinatorial property of finite discrete sequences), and directional triphone asymmetry ($d_1 > d_2$) does not hold cross-linguistically after multiple-testing correction.
 
 ---

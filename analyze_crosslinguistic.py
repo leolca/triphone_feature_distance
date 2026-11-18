@@ -39,6 +39,10 @@ LANGUAGES = [
     ("tr", "Turkish", "Turkic", "tur-Latn"),
     ("id", "Indonesian", "Austronesian", "ind-Latn"),
     ("ko", "Korean", "Koreanic", "kor-Hang"),
+    ("ta", "Tamil", "Dravidian", "tam-Taml"),
+    ("mt", "Maltese", "Afro-Asiatic (Semitic)", "mlt-Latn"),
+    ("vi", "Vietnamese", "Austroasiatic", "vie-Latn"),
+    ("yo", "Yoruba", "Niger-Congo", "yor-Latn"),
 ]
 
 

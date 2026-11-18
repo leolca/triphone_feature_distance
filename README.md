@@ -60,6 +60,7 @@ Word forms and corpus token frequencies are extracted from the training splits o
 - `analyze_cv_baseline.py` — C/V-template-preserving baseline comparison (`results/cv_baseline.csv`).
 - `analyze_peak_sharpness.py` — Exploratory analysis of peak sharpness vs. inventory size and CVC/VCV alternation.
 - `run_robustness_checks.py` — 20-seed Monte Carlo shuffle (`results/robustness_mc20.csv`), 17k-token subsampling (`results/robustness_sub17k.csv`), and type-weighted (`results/robustness_type.csv`) checks.
+- `run_feature_sensitivity.py` — PanPhon salience-weighted, partial Hamming, 16-feature non-major-class ablation, cosine binning (10/20/40), IPA segmentation audit (`results/segmentation_audit.csv`), and 5-family equal-weight aggregation (`results/feature_sensitivity.csv`).
 
 ### Setup & Run
 

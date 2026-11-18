@@ -16,7 +16,7 @@ For every word of length $L \geq 3$, we compute the feature-space distance betwe
 
 To isolate genuine sequential phonotactic constraints from marginal phoneme frequencies, word-length distributions, and coarse syllable alternation, natural words are compared against **two nested permutation baselines**:
 - **Unrestricted within-word shuffle:** randomly permutes segments within each word while preserving its exact segment multiset and corpus token count.
-- **C/V-skeleton-preserving baseline:** preserves every word's exact vocalic/non-vocalic (`syl == +1` vs. `syl != +1`) skeleton while permuting consonants across C slots and vowels across V slots in the corpus.
+- **C/V-template-preserving baseline:** preserves every word's exact vocalic/non-vocalic (`syl == +1` vs. `syl != +1`) template while permuting consonants across C slots and vowels across V slots in the corpus.
 
 ---
 
@@ -48,7 +48,7 @@ Word forms and corpus token frequencies are extracted from the training splits o
 
 1. **Universal intermediate-distance mode:** Across all 13 languages, the token-weighted joint triphone distance distribution $P(d_1, d_2)$ peaks at intermediate feature distances—$(d_1^*, d_2^*) \in \{(8,8), (9,9), (9,10), (10,10)\}$ under Hamming distance and $[0.28, 0.38]$ under rescaled cosine distance.
 2. **Consistent real vs. unrestricted-shuffle differences (13/13 languages):** Relative to unrestricted within-word permutations, natural text exhibits higher expected adjacent distance ($\mathbb{E}[d]$), lower standard deviation ($\sigma(d)$), and lower joint triphone entropy ($H(d_1, d_2)$) in all 13 languages under both metrics (paired Wilcoxon $W=0, p = 2.44 \times 10^{-4}$). These results hold across 20 Monte Carlo shuffle seeds, 17k-token subsampling, and type-weighted analyses.
-3. **Separating C/V alternation from sub-syllabic sequencing:** Under the C/V-skeleton-preserving baseline, the upward shift in $\mathbb{E}[d]$ disappears ($6/13$ languages, $p = 0.946$), showing it is driven by C/V alternation. However, natural sequences still show significantly narrower dispersion $\sigma(d)$ ($11/13$ languages, $p = 4.64 \times 10^{-3}$) and lower joint entropy $H(d_1, d_2)$ ($13/13$ languages, $W=0, p = 2.44 \times 10^{-4}$), revealing sub-syllabic feature-sequencing constraints beyond C/V alternation.
+3. **Separating C/V alternation from sub-syllabic sequencing:** Under the C/V-template-preserving baseline, the upward shift in $\mathbb{E}[d]$ disappears ($6/13$ languages, $p = 0.946$), showing it is driven by C/V alternation. However, natural sequences still show significantly narrower dispersion $\sigma(d)$ ($11/13$ languages, $p = 4.64 \times 10^{-3}$) and lower joint entropy $H(d_1, d_2)$ ($13/13$ languages, $W=0, p = 2.44 \times 10^{-4}$), revealing sub-syllabic feature-sequencing constraints beyond C/V alternation.
 4. **Negative replications of single-language patterns:** The negative within-word mean–SD correlation ($r$) appears similarly in shuffled baselines (indicating a combinatorial property of finite discrete sequences), and directional triphone asymmetry ($d_1 > d_2$) does not hold cross-linguistically after multiple-testing correction.
 
 ---
@@ -57,7 +57,7 @@ Word forms and corpus token frequencies are extracted from the training splits o
 
 - `analyze_crosslinguistic.py` — Main Hamming distance analysis (`results/summary.csv`, `figures/triphone_heatmaps.pdf`, `figures/real_vs_shuffled_comparison.pdf`).
 - `analyze_cosine.py` — Rescaled cosine distance analysis (`results/summary_cosine.csv`, `figures/triphone_heatmaps_cosine.pdf`, `figures/real_vs_shuffled_cosine.pdf`).
-- `analyze_cv_baseline.py` — C/V-skeleton-preserving baseline comparison (`results/cv_baseline.csv`).
+- `analyze_cv_baseline.py` — C/V-template-preserving baseline comparison (`results/cv_baseline.csv`).
 - `analyze_peak_sharpness.py` — Exploratory analysis of peak sharpness vs. inventory size and CVC/VCV alternation.
 - `run_robustness_checks.py` — 20-seed Monte Carlo shuffle (`results/robustness_mc20.csv`), 17k-token subsampling (`results/robustness_sub17k.csv`), and type-weighted (`results/robustness_type.csv`) checks.
 

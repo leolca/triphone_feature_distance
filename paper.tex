@@ -92,7 +92,7 @@ For every word of phonemic length $L \geq 3$ with segment sequence $(\phi_1, \do
     \item The expected value $\mathbb{E}[d]$ and standard deviation $\sigma(d)$ of adjacent transitions;
     \item The joint Shannon entropy $H(d_1, d_2) = -\sum_{d_1,d_2} P(d_1, d_2)\log_2 P(d_1, d_2)$ (in bits);
     \item The within-word Pearson correlation $r$ between the mean and standard deviation of $\{d_1,\dots,d_{L-1}\}$;
-    \item The middle-phone directional asymmetry, comparing $\mathbb{E}[d_1 \mid \phi_2]$ against $\mathbb{E}[d_2 \mid \phi_2]$ across middle segments $\phi_2$ with token weight $\geq 50$ via a paired Wilcoxon signed-rank test.
+    \item The middle-phone directional asymmetry, comparing $\mathbb{E}[d_1 \mid \phi_2]$ against $\mathbb{E}[d_2 \mid \phi_2]$ across middle segments $\phi_2$ with token weight $\geq 50$ via a paired Wilcoxon signed-rank test (where $W = \min(W^+, W^-)$ denotes the minimum of the positive and negative signed-rank sums).
 \end{itemize}
 
 \subsection{Nested Permutation Baselines and Inferential Testing}

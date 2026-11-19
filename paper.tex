@@ -107,7 +107,7 @@ Cross-linguistic consistency across the $n=17$ languages is evaluated using two-
 Table~\ref{tab:corpora} summarizes the corpus statistics and triphone peaks across the 17 languages, and Figure~\ref{fig:heatmaps} displays the empirical joint distributions $P(d_1, d_2)$. In 16 of the 17 languages, $P(d_1, d_2)$ concentrates around an intermediate-distance peak at $(d_1^*, d_2^*) \in \{(8,8), (9,9), (9,10), (10,10)\}$ (with Vietnamese peaking at $(10,6)$), with very low mass at small ($d \leq 3$) or large ($d \geq 14$) feature distances.
 
 \begin{table}[htbp]
-\tbl{Corpus statistics, effective segment inventory size $|P|$, \% CVC/VCV alternation, modal triphone intradistance peak $(d_1^*, d_2^*)$, and directional asymmetry across 17 languages.}
+\tbl{Corpus statistics, effective segment inventory size $|P|$, \% CVC/VCV alternation, modal triphone intradistance peak $(d_1^*, d_2^*)$, and directional asymmetry under feature Hamming distance $d_{\text{H}}$ across 17 languages.}
 {\begin{tabular}{llrrrrrcc}
 \toprule
 Language & Family & Tokens & $|P|$ & CVC/VCV & Triphones & Peak $(d_1^*, d_2^*)$ & $\mathbb{E}[d_1], \mathbb{E}[d_2]$ & Mid $d_1>d_2$ ($p$) \\
@@ -152,7 +152,7 @@ Across 20 independent Monte Carlo shuffle seeds per language, the shuffle standa
 By contrast, two patterns from single-language analyses do not hold as cross-linguistic invariants under baseline controls. First, while the within-word correlation $r$ between mean distance and standard deviation is negative in all 17 languages ($r \in [-0.511, -0.251]$), virtually identical negative correlations appear in the shuffled baseline ($r_{\text{shuf}} \in [-0.512, -0.280]$), indicating a combinatorial property of finite bounded sequences rather than a uniquely phonotactic constraint. Second, the directional asymmetry $d_1 > d_2$ observed in English ($\mathbb{E}[d_1]=7.80 > \mathbb{E}[d_2]=7.44$, $p=0.98$) is absent or reversed in several languages (e.g., Spanish, Polish, Turkish, Finnish, Tamil, Yoruba). For Hindi, although the token-weighted mean is slightly higher for $d_1$ ($\mathbb{E}[d_1]=8.52 > \mathbb{E}[d_2]=8.44$), only $40.4\%$ of middle phones exhibit $d_1 > d_2$ (uncorrected $p=0.033$); after Holm--Bonferroni correction across the 17 languages ($\alpha/17 = 0.0029$), none of the 17 languages show statistically significant per-middle-phone directional asymmetry.
 
 \begin{table}[htbp]
-\tbl{Comparison of natural text against the within-word shuffled baseline across 17 languages.}
+\tbl{Comparison of natural text against the within-word shuffled baseline across 17 languages under feature Hamming distance $d_{\text{H}}$.}
 {\begin{tabular}{lcccccccc}
 \toprule
 Language & \multicolumn{2}{c}{$\mathbb{E}[d]$} & \multicolumn{2}{c}{$\sigma(d)$} & \multicolumn{2}{c}{$H(d_1, d_2)$ (bits)} & \multicolumn{2}{c}{Word $r$} \\

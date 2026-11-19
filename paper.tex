@@ -189,7 +189,7 @@ Yoruba     & \textbf{8.54} & 6.81 & \textbf{2.72} & 3.63 & \textbf{5.85} & 6.78 
 \end{figure}
 
 \subsection{Robustness Under Cosine Distance}
-To verify that the observed phonotactic dispersion pattern is not driven by shared unspecified ($0$) entries in sparse consonant feature vectors, we repeated the full 17-language analysis using the $\ell_2$-normalized rescaled cosine distance $d_{\cos} \in [0, 1]$. As shown in Table~\ref{tab:cosine} and Figure~\ref{fig:cosine}, every finding replicates across all 17 languages: natural text exhibits an intermediate-distance peak at $(d_{\cos,1}^*, d_{\cos,2}^*) \in [0.28, 0.38]$, a higher expected contrast ($\mathbb{E}[d_{\cos}]_{\text{real}} > \mathbb{E}[d_{\cos}]_{\text{shuf}}$ by $+0.019$ to $+0.055$ in $17/17$ languages), a narrower dispersion ($\sigma(d_{\cos})$ reduced by $0.002$ to $0.035$ in $17/17$ languages), and a reduced joint entropy ($H_{\text{real}} < H_{\text{shuf}}$ by $0.29$ to $0.74$ bits in $17/17$ languages). Moreover, under $d_{\cos}$, the magnitude of the within-word correlation $|r|$ is smaller in natural text than in the shuffled baseline in 16 of 17 languages (Yoruba is $-0.351$ vs.\ $-0.341$), further confirming that negative $r$ is largely a combinatorial baseline artifact rather than a phonotactic law.
+To verify that the observed phonotactic dispersion pattern is not driven by shared unspecified ($0$) entries in sparse consonant feature vectors, we repeated the full 17-language analysis using the $\ell_2$-normalized rescaled cosine distance $d_{\cos} \in [0, 1]$. As shown in Table~\ref{tab:cosine} and Figures~\ref{fig:heatmaps_cosine}--\ref{fig:cosine}, every finding replicates across all 17 languages: natural text exhibits an intermediate-distance peak at $(d_{\cos,1}^*, d_{\cos,2}^*) \in [0.28, 0.38]$, a higher expected contrast ($\mathbb{E}[d_{\cos}]_{\text{real}} > \mathbb{E}[d_{\cos}]_{\text{shuf}}$ by $+0.019$ to $+0.055$ in $17/17$ languages), a narrower dispersion ($\sigma(d_{\cos})$ reduced by $0.002$ to $0.035$ in $17/17$ languages), and a reduced joint entropy ($H_{\text{real}} < H_{\text{shuf}}$ by $0.29$ to $0.74$ bits in $17/17$ languages). Moreover, under $d_{\cos}$, the magnitude of the within-word correlation $|r|$ is smaller in natural text than in the shuffled baseline in 16 of 17 languages (Yoruba is $-0.351$ vs.\ $-0.341$), further confirming that negative $r$ is largely a combinatorial baseline artifact rather than a phonotactic law.
 
 \begin{table}[htbp]
 \tbl{Robustness check under rescaled cosine distance $d_{\cos} \in [0,1]$: natural text vs.\ within-word shuffled baseline across 17 languages.}
@@ -220,6 +220,13 @@ Yoruba     & $(0.38, 0.38)$ & \textbf{0.324} & 0.266 & \textbf{0.111} & 0.138 & 
 \end{tabular}}
 \label{tab:cosine}
 \end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/triphone_heatmaps_cosine.pdf}
+\caption{Empirical joint probability distributions $P(d_{\cos,1}, d_{\cos,2})$ of adjacent distinctive-feature distances in segmental triphones under rescaled cosine distance $d_{\cos} \in [0, 1]$ across 17 languages.}
+\label{fig:heatmaps_cosine}
+\end{figure}
 
 \begin{figure}[htbp]
 \centering

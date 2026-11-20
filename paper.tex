@@ -296,11 +296,14 @@ Across a diverse sample of languages from multiple families, this study shows th
 
 Quantitatively, across our 17-language, nine-family sample, this study rejects the inventory-only null hypothesis ($H_{0,\text{unrest}}$) in all 17 corpora ($W=0, p=1.53 \times 10^{-5}$): natural segmental sequences consistently show higher expected adjacent distances ($+0.71$ to $+1.66$ features under Hamming; $+0.019$ to $+0.055$ under cosine), lower distance variability ($-0.23$ to $-1.01$ features under Hamming; $-0.002$ to $-0.035$ under cosine), and reduced joint triphone entropy ($-0.50$ to $-1.01$ bits under Hamming; $-0.29$ to $-0.74$ bits under cosine). Testing against the strict within-word C/V-template-preserving null hypothesis ($H_{0,\text{CV}}$) further shows that while $\mathbb{E}[d]$ ($p=0.051$) and $\sigma(d)$ ($p=0.517$) are not significantly separated once the word's C/V template and segment multiset are fixed, $H_{0,\text{CV}}$ is consistently rejected for joint triphone entropy ($16/17$ languages, $p=1.07 \times 10^{-4}$) and mutual information $I(d_1; d_2)$ ($17/17$ languages, $+0.007$ to $+0.101$ bits, $W=0, p=1.53 \times 10^{-5}$; $9/9$ families), demonstrating that consecutive feature transitions around a segment are sequentially coupled beyond C/V alternation. Future work employing cross-word utterance boundaries, direct acoustic measurements, position-resolved and morpheme-aware analyses (to test whether transition constraints intensify across word and morpheme unfolding), and multidimensional scaling (MDS) to embed cross-linguistic feature-transition geometries will help determine how these sub-syllabic feature-space constraints map onto physical speech production, perception, and lexical structure.
 
-\section*{Data and Code Availability}
-All Universal Dependencies v2 treebanks used in this study are publicly available from the Universal Dependencies repository (\url{https://universaldependencies.org/}). All Python analysis scripts (\texttt{analyze\_crosslinguistic.py}, \texttt{analyze\_cosine.py}, \texttt{analyze\_peak\_sharpness.py}, \texttt{analyze\_cv\_baseline.py}, \texttt{analyze\_major\_vs\_finer.py}, \texttt{run\_within\_word\_cv\_mi.py}, \texttt{run\_robustness\_checks.py}, \texttt{run\_feature\_sensitivity.py}), generated summary tables, and figures are publicly available at \url{https://github.com/leolca/triphone_feature_distance}.
+\section*{Data Availability Statement}
+The data, analysis scripts, summary tables, and figures that support the findings of this study (derived from Universal Dependencies v2 treebanks) are openly available at \url{https://github.com/leolca/triphone_feature_distance}.
 
 \section*{Disclosure Statement}
 No potential conflict of interest was reported by the author.
+
+\section*{Funding}
+No funding was received.
 
 \section*{Declaration of Generative AI and AI-Assisted Technologies}
 During the preparation of this work, the author used an AI assistant (Gemini) to assist with Python scripting for corpus processing and initial LaTeX drafting. After using this tool, the author reviewed, verified, and edited all code, statistical results, citations, and manuscript text, and takes full responsibility for the content of the published article.

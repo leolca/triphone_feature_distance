@@ -103,7 +103,7 @@ Table~\ref{tab:corpora} summarizes the corpus statistics and triphone peaks acro
 
 \begin{table}[htbp]
 \caption{Corpus statistics, effective segment inventory size $|P|$, \% CVC/VCV alternation, modal triphone intradistance peak $(d_1^*, d_2^*)$, and directional asymmetry under feature Hamming distance $d_{\text{H}}$ across 17 languages.}
-\centering\footnotesize
+\centering\scriptsize\setlength{\tabcolsep}{3.5pt}
 \begin{tabular}{llrrrrrcc}
 \toprule
 Language & Family & Tokens & $|P|$ & CVC/VCV & Triphones & Peak $(d_1^*, d_2^*)$ & $\mathbb{E}[d_1], \mathbb{E}[d_2]$ & Mid $d_1>d_2$ ($p$) \\
@@ -190,7 +190,7 @@ To verify that the observed phonotactic dispersion pattern is not driven by shar
 
 \begin{table}[htbp]
 \caption{Robustness check under rescaled cosine distance $d_{\cos} \in [0,1]$: natural text vs.\ within-word shuffled baseline across 17 languages.}
-\centering\footnotesize
+\centering\scriptsize\setlength{\tabcolsep}{4.5pt}
 \begin{tabular}{lccccccccc}
 \toprule
 Language & Peak $(d_{\cos,1}^*, d_{\cos,2}^*)$ & \multicolumn{2}{c}{$\mathbb{E}[d_{\cos}]$} & \multicolumn{2}{c}{$\sigma(d_{\cos})$} & \multicolumn{2}{c}{$H(d_{\cos,1}, d_{\cos,2})$} & \multicolumn{2}{c}{Word $r_{\cos}$} \\

@@ -30,9 +30,9 @@
 
 \usepackage{xurl}
 \usepackage{hyperref}
-\doublespace
 
 \begin{document}
+\doublespace
 
 \title{Cross-Linguistic Distinctive-Feature Constraints on Segmental Triphones: Evidence for Contrastive Dispersion}
 
@@ -134,8 +134,9 @@ Cross-linguistic consistency across the $n=17$ languages is evaluated using two-
 Table~\ref{tab:corpora} summarizes the corpus statistics and triphone peaks across the 17 languages, and Figure~\ref{fig:heatmaps} displays the empirical joint distributions $P(d_1, d_2)$. In 16 of the 17 languages, $P(d_1, d_2)$ concentrates around an intermediate-distance peak at $(d_1^*, d_2^*) \in \{(8,8), (9,9), (9,10), (10,10)\}$ (with Vietnamese peaking at $(10,6)$), with very low mass at small ($d \leq 3$) or large ($d \geq 14$) feature distances.
 
 \begin{table}[htbp]
-\tbl{Corpus statistics, effective segment inventory size $|P|$, \% CVC/VCV alternation, modal triphone intradistance peak $(d_1^*, d_2^*)$, and directional asymmetry under feature Hamming distance $d_{\text{H}}$ across 17 languages.}
-{\begin{tabular}{llrrrrrcc}
+\caption{Corpus statistics, effective segment inventory size $|P|$, \% CVC/VCV alternation, modal triphone intradistance peak $(d_1^*, d_2^*)$, and directional asymmetry under feature Hamming distance $d_{\text{H}}$ across 17 languages.}
+\centering\footnotesize
+\begin{tabular}{llrrrrrcc}
 \toprule
 Language & Family & Tokens & $|P|$ & CVC/VCV & Triphones & Peak $(d_1^*, d_2^*)$ & $\mathbb{E}[d_1], \mathbb{E}[d_2]$ & Mid $d_1>d_2$ ($p$) \\
 \midrule
@@ -157,7 +158,7 @@ Maltese (\texttt{mt})    & Afro-Asiatic     &  20,056 & 52 & 51.0\% &  55,041 & 
 Vietnamese (\texttt{vi}) & Austroasiatic    &  17,028 & 35 & 51.6\% &  28,694 & $(10,6)$ (3.7\%)  & 7.78, 7.21 & 50.0\% (0.93) \\
 Yoruba (\texttt{yo})     & Niger-Congo      &   7,102 & 32 & 85.7\% &   8,532 & $(9,9)$ (12.0\%)  & 8.57, 8.54 & 28.0\% (0.10) \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \label{tab:corpora}
 \end{table}
 
@@ -179,8 +180,9 @@ Across 20 independent Monte Carlo shuffle seeds per language, the shuffle standa
 By contrast, two patterns from single-language analyses do not hold as cross-linguistic invariants under baseline controls. First, while the within-word correlation $r$ between mean distance and standard deviation is negative in all 17 languages ($r \in [-0.511, -0.251]$), virtually identical negative correlations appear in the shuffled baseline ($r_{\text{shuf}} \in [-0.512, -0.280]$), indicating a combinatorial property of finite bounded sequences rather than a uniquely phonotactic constraint. Second, the directional asymmetry $d_1 > d_2$ observed in English ($\mathbb{E}[d_1]=7.80 > \mathbb{E}[d_2]=7.44$, $p=0.98$) is absent or reversed in several languages (e.g., Spanish, Polish, Turkish, Finnish, Tamil, Yoruba). For Hindi, although the token-weighted mean is slightly higher for $d_1$ ($\mathbb{E}[d_1]=8.52 > \mathbb{E}[d_2]=8.44$), only $40.4\%$ of middle phones exhibit $d_1 > d_2$ (uncorrected $p=0.033$); after Holm--Bonferroni correction across the 17 languages ($\alpha/17 = 0.0029$), none of the 17 languages show statistically significant per-middle-phone directional asymmetry.
 
 \begin{table}[htbp]
-\tbl{Comparison of natural text against the within-word shuffled baseline across 17 languages under feature Hamming distance $d_{\text{H}}$.}
-{\begin{tabular}{lcccccccc}
+\caption{Comparison of natural text against the within-word shuffled baseline across 17 languages under feature Hamming distance $d_{\text{H}}$.}
+\centering\footnotesize
+\begin{tabular}{lcccccccc}
 \toprule
 Language & \multicolumn{2}{c}{$\mathbb{E}[d]$} & \multicolumn{2}{c}{$\sigma(d)$} & \multicolumn{2}{c}{$H(d_1, d_2)$ (bits)} & \multicolumn{2}{c}{Word $r$} \\
 \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}
@@ -204,7 +206,7 @@ Maltese    & \textbf{7.43} & 6.79 & \textbf{2.94} & 3.12 & \textbf{6.21} & 6.80 
 Vietnamese & \textbf{7.74} & 6.98 & \textbf{2.47} & 2.85 & \textbf{6.27} & 6.80 & $-0.385$ & $-0.426$ \\
 Yoruba     & \textbf{8.54} & 6.81 & \textbf{2.72} & 3.63 & \textbf{5.85} & 6.78 & $-0.390$ & $-0.431$ \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \label{tab:comparison}
 \end{table}
 
@@ -219,8 +221,9 @@ Yoruba     & \textbf{8.54} & 6.81 & \textbf{2.72} & 3.63 & \textbf{5.85} & 6.78 
 To verify that the observed phonotactic dispersion pattern is not driven by shared unspecified ($0$) entries in sparse consonant feature vectors, we repeated the full 17-language analysis using the $\ell_2$-normalized rescaled cosine distance $d_{\cos} \in [0, 1]$. As shown in Table~\ref{tab:cosine} and Figures~\ref{fig:heatmaps_cosine}--\ref{fig:cosine}, every finding replicates across all 17 languages: natural text exhibits an intermediate-distance peak at $(d_{\cos,1}^*, d_{\cos,2}^*) \in [0.28, 0.38]$, a higher expected contrast ($\mathbb{E}[d_{\cos}]_{\text{real}} > \mathbb{E}[d_{\cos}]_{\text{shuf}}$ by $+0.019$ to $+0.055$ in $17/17$ languages), a narrower dispersion ($\sigma(d_{\cos})$ reduced by $0.002$ to $0.035$ in $17/17$ languages), and a reduced joint entropy ($H_{\text{real}} < H_{\text{shuf}}$ by $0.29$ to $0.74$ bits in $17/17$ languages). Moreover, under $d_{\cos}$, the magnitude of the within-word correlation $|r|$ is smaller in natural text than in the shuffled baseline in 16 of 17 languages (Yoruba is $-0.351$ vs.\ $-0.341$), further confirming that negative $r$ is largely a combinatorial baseline artifact rather than a phonotactic law.
 
 \begin{table}[htbp]
-\tbl{Robustness check under rescaled cosine distance $d_{\cos} \in [0,1]$: natural text vs.\ within-word shuffled baseline across 17 languages.}
-{\begin{tabular}{lccccccccc}
+\caption{Robustness check under rescaled cosine distance $d_{\cos} \in [0,1]$: natural text vs.\ within-word shuffled baseline across 17 languages.}
+\centering\footnotesize
+\begin{tabular}{lccccccccc}
 \toprule
 Language & Peak $(d_{\cos,1}^*, d_{\cos,2}^*)$ & \multicolumn{2}{c}{$\mathbb{E}[d_{\cos}]$} & \multicolumn{2}{c}{$\sigma(d_{\cos})$} & \multicolumn{2}{c}{$H(d_{\cos,1}, d_{\cos,2})$} & \multicolumn{2}{c}{Word $r_{\cos}$} \\
 \cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
@@ -244,7 +247,7 @@ Maltese    & $(0.33, 0.33)$ & \textbf{0.278} & 0.263 & \textbf{0.114} & 0.120 & 
 Vietnamese & $(0.38, 0.38)$ & \textbf{0.307} & 0.284 & \textbf{0.095} & 0.111 & \textbf{5.58} & 6.08 & $-0.309$ & $-0.413$ \\
 Yoruba     & $(0.38, 0.38)$ & \textbf{0.324} & 0.266 & \textbf{0.111} & 0.138 & \textbf{5.56} & 6.24 & $-0.351$ & $-0.341$ \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \label{tab:cosine}
 \end{table}
 
@@ -270,8 +273,9 @@ To test the C/V-template-only null hypothesis $H_{0,\text{CV}}$ under the strict
 \end{itemize}
 
 \begin{table}[htbp]
-\tbl{Within-word C/V-template-preserving baseline (20 Monte Carlo seeds, mean $\pm$ SD) and mutual-information decomposition $H(d_1, d_2) = H(d_1) + H(d_2) - I(d_1; d_2)$ across 17 languages (Hamming distance $d_{\text{H}}$).}
-{\begin{tabular}{lccccccc}
+\caption{Within-word C/V-template-preserving baseline (20 Monte Carlo seeds, mean $\pm$ SD) and mutual-information decomposition $H(d_1, d_2) = H(d_1) + H(d_2) - I(d_1; d_2)$ across 17 languages (Hamming distance $d_{\text{H}}$).}
+\centering\footnotesize
+\begin{tabular}{lccccccc}
 \toprule
 Language & \multicolumn{2}{c}{$H(d_1)+H(d_2)$} & \multicolumn{2}{c}{$H(d_1, d_2)$ (bits)} & \multicolumn{2}{c}{$I(d_1; d_2)$ (bits)} \\
 \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
@@ -295,7 +299,7 @@ Maltese    & 6.385 & 6.466 & \textbf{6.213} & $6.352 \pm 0.014$ & \textbf{0.173}
 Vietnamese & 6.480 & 6.666 & \textbf{6.265} & $6.546 \pm 0.016$ & \textbf{0.215} & $0.120 \pm 0.008$ \\
 Yoruba     & 6.313 & 6.297 & \textbf{5.846} & $5.883 \pm 0.034$ & \textbf{0.467} & $0.414 \pm 0.021$ \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \label{tab:cv_decomp}
 \end{table}
 
